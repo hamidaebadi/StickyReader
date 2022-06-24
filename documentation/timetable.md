@@ -6,7 +6,3 @@
 22.06.2022  |   4       | setting up backend, database and configuration file
 24.06.2022  |   6       | Impelementing user regesteration functionality on both backend and frontend
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
