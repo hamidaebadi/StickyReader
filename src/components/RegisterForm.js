@@ -17,6 +17,11 @@ const RegisterForm = () => {
     const [registerFormValues, setRegisterFormValue] = useState(initalRegisterFormValues)
     const handleRegisterForm = (event) => {
         event.preventDefault()
+        if(registerFormValues.password !== registerFormValues.confirmPassword){
+            console.log("Passwords do not match")
+            setRegisterFormValue({...registerFormValues, password: '', confirmPassword: ''})
+            return
+        }
         const userObj = {...registerFormValues}
         userServices.createUser(userObj)
         .then(user => console.log("user created"))
@@ -40,27 +45,27 @@ const RegisterForm = () => {
             <div className="row g-3 p-3">
                 <div className="col">
                     <input type="text" className="form-control" placeholder="First name" aria-label="First name"
-                    onChange={handleInputValue('firstName')} value={registerFormValues.firstName}/>
+                    onChange={handleInputValue('firstName')} value={registerFormValues.firstName} required/>
                 </div>
                 <div className="col">
                     <input type="text" className="form-control" placeholder="Last name" aria-label="Last name"
-                    onChange={handleInputValue('lastName')} value={registerFormValues.lastName}/>
+                    onChange={handleInputValue('lastName')} value={registerFormValues.lastName} required/>
                 </div>
             </div>
             <div className="row p-3 p-3">
                 <div className="col">
                     <input type="email" className="form-control" placeholder="email" aria-label="email"
-                    onChange={handleInputValue('email')} value={registerFormValues.email}/>
+                    onChange={handleInputValue('email')} value={registerFormValues.email} required/>
                 </div>
             </div>
             <div className="row p-3">
                 <div className="col">
                     <input type="password" className="form-control" placeholder="password" aria-label="password"
-                    onChange={handleInputValue('password')} value={registerFormValues.password}/>
+                    onChange={handleInputValue('password')} value={registerFormValues.password} required/>
                 </div>
                 <div className="col">
                     <input type="password" className="form-control" placeholder="confirm password" aria-label="confirmPassword"
-                    onChange={handleInputValue('confirmPassword')} value={registerFormValues.confirmPassword}/>
+                    onChange={handleInputValue('confirmPassword')} value={registerFormValues.confirmPassword} required/>
                 </div>
             </div>
             <div className="row p-3">

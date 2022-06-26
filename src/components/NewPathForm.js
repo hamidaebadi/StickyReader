@@ -4,15 +4,15 @@ const NewPathForm = () =>{
     return(
         <>
             <form>
-                <div class="row mb-3">
-                    <label for="inputTopic" class="col-sm-2 col-form-label">Topic</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputTopic" />
+                <div className="row mb-3">
+                    <label htmlFor="inputTopic" className="col-sm-2 col-form-label">Topic</label>
+                    <div className="col-sm-10">
+                        <input type="text" className="form-control" id="inputTopic" />
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label for="inputCategory" class="form-label">Category</label>
-                    <select id="inputCategory" class="form-select">
+                    <label htmlFor="inputCategory" className="form-label">Category</label>
+                    <select id="inputCategory" className="form-select">
                         <option selected>Choose...</option>
                         <option>Computer Science</option>
                         <option>Politics</option>
@@ -20,12 +20,12 @@ const NewPathForm = () =>{
                     </select>
                 </div>
                 <div className="row ">
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <div className="mb-3">
+                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Add path</button>
+                <button type="submit" className="btn btn-primary">Add path</button>
             </form>
         </>
     )

@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Navbar from './components/NavigationBar';
 import LoginPage from './LoginPage/index';
 import RegisterPage from "./RegisterPage";
 import DashboardPage from "./DashboardPage";
-import {Route, Routes} from 'react-router-dom'
+import Profile from "./ProfilePage";
+import {Route, Routes, Navigate} from 'react-router-dom'
+import { SharedDataContext } from "./AppSharedContext";
 const App = () => {
-  const user = false;
+  const {state, dispatch} = useContext(SharedDataContext)
+  const user = state.user;
 
+  //check if user is already logged in
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedDiaryLearnerAppUser')
+    if(loggedUserJSON){
+      const user = JSON.parse(loggedUserJSON)
+      dispatch({
+        type: "USER_LOGGED_IN",
+        data: {user}
+      })
+    }
+  }, [])
   return (
     <>
     <div className="container-fluid">
@@ -16,6 +30,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={user ? <DashboardPage />: <LoginPage />}/>
         <Route path="/register" element={<RegisterPage />}/>
+        <Route path="/profile" element={user ? <Profile /> : <Navigate replace to="/"/>}/>
       </Routes>
 
     </div>
