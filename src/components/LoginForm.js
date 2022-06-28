@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import { SharedDataContext } from "../AppSharedContext";
 import loginService from '../services/login'
+import pathsServices from '../services/learningPath'
 
 const LoginForm = () => {
     const [email, setEmail] = useState('')
@@ -21,6 +22,8 @@ const LoginForm = () => {
         })
         setEmail('')
         setPassword('')
+        pathsServices.setToken(user.token)
+        console.log("Token set to: ", user.token)
     }
 
     return (

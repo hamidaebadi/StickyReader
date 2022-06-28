@@ -6,3 +6,4 @@
 22.06.2022  |   4       | setting up backend, database and configuration file
 24.06.2022  |   6       | Impelementing user regesteration functionality on both backend and frontend
 26.06.2022  |   4       | Implementing login & logout functionality for both backend and frontend
+28.06.2022  |   4       | Implementing adding reading path functionality for both backend and frontend

@@ -1,29 +1,66 @@
-import React from "react";
+import React, {useContext, useState} from "react";
+import { SharedDataContext } from "../AppSharedContext";
+import pathServices from '../services/learningPath'
 
 const NewPathForm = () =>{
+    const {dispatch} = useContext(SharedDataContext)
+    const initialNewPathFormValues = {
+        topic: '',
+        category: '',
+        description: ''
+    }
+    const [newPathFormValues, setNewPathFormValues] = useState(initialNewPathFormValues)
+
+    const handleState = (field) => {
+        return (event) => {
+            setNewPathFormValues({...newPathFormValues, [field]: event.target.value})
+        }
+    }
+    
+    const handleNewPath = async(event) => {
+        event.preventDefault()
+        //send data to server
+        const pathObj = {
+            topic: newPathFormValues.topic,
+            category: newPathFormValues.category,
+            description: newPathFormValues.description
+        }
+        const returnedPathObj = await pathServices.createNewPath(pathObj)
+        dispatch({
+            type: "ADD_NEW_PATH",
+            data: {path: returnedPathObj}
+        })
+        setNewPathFormValues(initialNewPathFormValues)
+    }
     return(
         <>
-            <form>
+            <form onSubmit={handleNewPath}>
                 <div className="row mb-3">
-                    <label htmlFor="inputTopic" className="col-sm-2 col-form-label">Topic</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" id="inputTopic" />
-                    </div>
+                        <input type="text" 
+                        className="form-control" 
+                        id="inputTopic" 
+                        placeholder="Subject" 
+                        value={newPathFormValues.topic}
+                        onChange={handleState('topic')}
+                        />
                 </div>
                 <div className="row mb-3">
-                    <label htmlFor="inputCategory" className="form-label">Category</label>
-                    <select id="inputCategory" className="form-select">
-                        <option selected>Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Politics</option>
-                        <option>Religion</option>
-                    </select>
+                     <input type="text"
+                        className="form-control" 
+                        id="inputCategory" 
+                        placeholder="Category i.e science, politics, ..."
+                        value={newPathFormValues.category}
+                        onChange={handleState('category')}/>
                 </div>
-                <div className="row ">
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
+                <div className="row mb-3">
+                        <textarea 
+                        className="form-control" 
+                        id="exampleFormControlTextarea1" 
+                        rows="3"
+                        placeholder="Description"
+                        onChange={handleState('description')}
+                        value={newPathFormValues.description}
+                        ></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary">Add path</button>
             </form>

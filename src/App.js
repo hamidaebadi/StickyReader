@@ -6,9 +6,11 @@ import DashboardPage from "./DashboardPage";
 import Profile from "./ProfilePage";
 import {Route, Routes, Navigate} from 'react-router-dom'
 import { SharedDataContext } from "./AppSharedContext";
+import pathServices from './services/learningPath'
 const App = () => {
   const {state, dispatch} = useContext(SharedDataContext)
   const user = state.user;
+
 
   //check if user is already logged in
   useEffect(() => {
@@ -19,8 +21,11 @@ const App = () => {
         type: "USER_LOGGED_IN",
         data: {user}
       })
+      pathServices.setToken(user.token)
+      
     }
   }, [])
+
   return (
     <>
     <div className="container-fluid">

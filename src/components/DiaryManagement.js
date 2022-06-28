@@ -1,6 +1,6 @@
 import React from "react";
 import NewPathForm from "./NewPathForm";
-import PathItem from "./PathItem";
+import PathsList from "./PathsList";
 
 const DiaryManagement = () => {
     return(
@@ -13,7 +13,7 @@ const DiaryManagement = () => {
          data-bs-target="#staticBackdrop">Create new learning path</button>
        </div>
        
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id="staticBackdrop" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -31,7 +31,7 @@ const DiaryManagement = () => {
             </div>
         
         <div className="row position-relative top-50 start-50 translate-middle-x">
-        <PathItem />
+        <PathsList />
         </div>
         
         </>
