@@ -5,8 +5,8 @@ const LoginPage = () => {
     return(
         <>
         <div className="row">
-        <div className="col p-3 "></div>
-        <div className="col p-3 ">
+        <div className="col-md-4 p-3 "></div>
+        <div className="col-md-4 p-3 ">
         <h3 className="p-3">Login</h3>
           <LoginForm />
           <p><strong>Dont have an account?</strong></p>
@@ -15,7 +15,7 @@ const LoginPage = () => {
           </Link>
          
         </div>
-        <div className="col p-3">
+        <div className="col-md-4 p-3">
         </div>
       </div>
         </>
