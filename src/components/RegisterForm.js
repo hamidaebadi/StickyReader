@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import {useState} from 'react';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import userServices from '../services/user';
-
+import Message from './Message';
+import {SharedDataContext} from '../AppSharedContext'
 const RegisterForm = () => {
+    const {state, dispatch} = useContext(SharedDataContext)
     const navigate = useNavigate()
     const initalRegisterFormValues = {
         firstName: '',
@@ -15,20 +17,43 @@ const RegisterForm = () => {
     }
 
     const [registerFormValues, setRegisterFormValue] = useState(initalRegisterFormValues)
-    const handleRegisterForm = (event) => {
+    const handleRegisterForm = async (event) => {
         event.preventDefault()
         if(registerFormValues.password !== registerFormValues.confirmPassword){
-            console.log("Passwords do not match")
+            dispatch({
+                type: "SET_NOTIC_MESSAGE",
+                data: {type: "WARNING", content: "PASSWORDS Don't match eachother"}
+            })
+
             setRegisterFormValue({...registerFormValues, password: '', confirmPassword: ''})
             return
         }
-        const userObj = {...registerFormValues}
-        userServices.createUser(userObj)
-        .then(user => console.log("user created"))
-        .catch(error => console.log("error: ", error.message))
 
-        setRegisterFormValue(initalRegisterFormValues)
-        navigate('/')
+        try{
+            const userObj = {...registerFormValues}
+            await userServices.createUser(userObj)
+
+            setRegisterFormValue(initalRegisterFormValues)
+            dispatch({
+                type: "SET_NOTIC_MESSAGE",
+                data: {type: "SUCCESS", content: "Your Account has been created! Now you  can log in"}
+            })
+            setTimeout(()=>{
+                dispatch({
+                    type: "SET_NOTIC_MESSAGE",
+                    data: {type: null, content: null}
+                })
+            }, 5000)
+            navigate('/login')
+        }catch(error){
+            const errorMessage = error.response.data.error
+            dispatch({
+                type: "SET_NOTIC_MESSAGE",
+                data: {type: "WARNING", content: errorMessage}
+            })
+
+        }
+        
     }
     const handleInputValue = (field) => {
         return (event) => {
@@ -40,6 +65,7 @@ const RegisterForm = () => {
         <>
         <div className="row">
             <h3>New Account</h3>
+            <Message type={state.NoticMessage.type} msg={state.NoticMessage.content}/>
         </div>
         <form onSubmit={handleRegisterForm}>
             <div className="row g-3 p-3">
@@ -71,7 +97,7 @@ const RegisterForm = () => {
             <div className="row p-3">
                 <button type="submit" className="btn btn-primary p-3">create account</button>
             </div>
-           <Link to="/"> Back to Login </Link>
+           <Link to="/login"> Back to Login </Link>
         </form>
             
         </>

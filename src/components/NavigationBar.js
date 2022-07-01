@@ -15,7 +15,7 @@ const NavBar = ({ user }) => {
             <>
                 <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark bg-gradient gap-4">
                     <div className="container">
-                        <span className="navbar-brand mb-0 h1">DiaryReading</span>
+                        <span className="navbar-brand mb-0 h1">StickyReader</span>
                     </div>
                 </nav>
             </>

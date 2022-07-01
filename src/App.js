@@ -8,6 +8,7 @@ import {Navigate, Route, Routes} from 'react-router-dom'
 import { SharedDataContext } from "./AppSharedContext";
 import pathServices from './services/learningPath'
 import ReadingPage from "./ReadingPage";
+import HomePage from "./HomePage";
 
 const App = () => {
   const {state, dispatch} = useContext(SharedDataContext)
@@ -37,7 +38,7 @@ const App = () => {
     </div>
     <div className="container-fluid">
       <Routes>
-          <Route path="/" element={user ? <StickyFeed />: <LoginPage />}/>
+          <Route path="/" element={user ? <StickyFeed />: <HomePage />}/>
           <Route path="/reading-paths" element={user ? <ReadingPage /> : <Navigate replace to="/login" />}/>
           <Route path="/register" element={<RegisterPage />}/>
           <Route path="/profile" element={user ? <Profile /> : <Navigate replace to="/"/>}/>

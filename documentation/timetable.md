@@ -9,3 +9,4 @@
 28.06.2022  |   4       | Implementing adding reading path functionality for both backend and frontend
 29.06.2022  |   4       | Working on User Interfaces, adding new pages, modification on navbar
 30.06.2022  |   3       | Working on User interfaces and database design
+01.07.2022  |   3       | Form validation, Notification to users and some UI modifications
