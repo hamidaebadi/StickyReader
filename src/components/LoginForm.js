@@ -22,6 +22,11 @@ const LoginForm = () => {
                 type: "USER_LOGGED_IN",
                 data: {user}
             })
+            const allPaths = await pathsServices.getAllPaths()
+            dispatch({
+                type: "INIT_ALL_PATHS",
+                data: {initialPaths: allPaths}
+            })
             setEmail('')
             setPassword('')
             pathsServices.setToken(user.token)

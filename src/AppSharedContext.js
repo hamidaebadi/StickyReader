@@ -15,12 +15,12 @@ let reducer = (state, action) => {
             return {...state, learningPaths: state.learningPaths.concat(pathObj)}
         case "INIT_ALL_PATHS":
             const allPaths = action.data.initialPaths
-            const filterdPaths = allPaths.filter(path => path.user === state.user._id)
+            const filterdPaths = allPaths.filter(path => path.author.id === state.user.id)
             return {...state, learningPaths: filterdPaths}
         case "SET_NOTIC_MESSAGE":
             return {...state, NoticMessage: action.data}
         default:
-            return state
+            return initialState
     }
 }
 

@@ -10,3 +10,4 @@
 29.06.2022  |   4       | Working on User Interfaces, adding new pages, modification on navbar
 30.06.2022  |   3       | Working on User interfaces and database design
 01.07.2022  |   3       | Form validation, Notification to users and some UI modifications
+04.07.2022  |   5       | Bug fixed, adding sticky functionality, UI improvement, Notification improvment

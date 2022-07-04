@@ -13,7 +13,7 @@ const LoginPage = () => {
         <div className="col-md-4 p-3 "></div>
         <div className="col-md-4 p-3 ">
         <h3 className="p-3">Login</h3>
-        {state.NoticMessage.content ? <Message type={state.NoticMessage.type} msg={state.NoticMessage.content}/> : null}
+        {state.NoticMessage ? <Message type={state.NoticMessage.type} msg={state.NoticMessage.content}/> : null}
           <LoginForm />
           <p><strong>Dont have an account?</strong></p>
           <Link to="/register">

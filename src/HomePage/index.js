@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom'
 const HomePage = () => {
     return(
         <>
-        <div className="d-flex cover-page justify-content-center">
-            <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center">
+            <div className="d-flex">
                 <p>
                     Welcome to StickyReader
                 </p>

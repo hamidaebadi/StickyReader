@@ -7,6 +7,7 @@ import Profile from "./ProfilePage";
 import {Navigate, Route, Routes} from 'react-router-dom'
 import { SharedDataContext } from "./AppSharedContext";
 import pathServices from './services/learningPath'
+import stickyservices from './services/sticky'
 import ReadingPage from "./ReadingPage";
 import HomePage from "./HomePage";
 
@@ -23,7 +24,14 @@ const App = () => {
         type: "USER_LOGGED_IN",
         data: {user}
       })
+      pathServices.getAllPaths()
+      .then((allPaths) =>  dispatch({
+        type: "INIT_ALL_PATHS",
+        data: {initialPaths: allPaths}
+      }))
+     
       pathServices.setToken(user.token)
+      stickyservices.setToken(user.token)
       
     }
   }, [])
