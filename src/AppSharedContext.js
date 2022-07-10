@@ -1,6 +1,10 @@
 import React, {useReducer} from "react";
 
-const initialState = {user: null, learningPaths: [], NoticMessage: {type: null, content: null}}
+const initialState = {user: null,
+     learningPaths: [],
+      NoticMessage: {type: null, content: null},
+      allUsers: []
+    }
 
 //reducers
 let reducer = (state, action) => {
@@ -19,6 +23,9 @@ let reducer = (state, action) => {
             return {...state, learningPaths: filterdPaths}
         case "SET_NOTIC_MESSAGE":
             return {...state, NoticMessage: action.data}
+        case "REMOVE_PATH":
+            const filteredPaths = state.learningPaths.filter(path => path.id !== action.data.pathId)
+            return {...state, learningPaths: filteredPaths}
         default:
             return initialState
     }

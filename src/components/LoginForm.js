@@ -1,7 +1,8 @@
 import React, {useContext, useState} from "react";
 import { SharedDataContext } from "../AppSharedContext";
-import loginService from '../services/login'
-import pathsServices from '../services/learningPath'
+import loginService from '../services/login';
+import pathsServices from '../services/learningPath';
+import userServices from '../services/user';
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
@@ -26,6 +27,12 @@ const LoginForm = () => {
             dispatch({
                 type: "INIT_ALL_PATHS",
                 data: {initialPaths: allPaths}
+            })
+
+            const result = await userServices.getAllUser()
+             dispatch({
+                type: "GET_ALL_USERS",
+                data: {allUsers: result}
             })
             setEmail('')
             setPassword('')

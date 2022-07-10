@@ -30,10 +30,23 @@ const NewPathForm = () =>{
             type: "ADD_NEW_PATH",
             data: {path: returnedPathObj}
         })
+
+        const msg = "Your path created successfully"
+        dispatch({
+            type: "SET_NOTIC_MESSAGE",
+            data: {type: "SUCCESS", content: msg}
+        })
+        setTimeout(() => {
+            dispatch({
+                type: "SET_NOTIC_MESSAGE",
+                data: {type: null, content: null}
+            })
+        }, 5000)
         setNewPathFormValues(initialNewPathFormValues)
     }
     return(
         <>
+        
             <form onSubmit={handleNewPath}>
                 <div className="row mb-3">
                         <input type="text" 

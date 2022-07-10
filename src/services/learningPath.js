@@ -7,10 +7,10 @@ const setToken = newToken => {
     token = `bearer ${newToken}`
 }
 
-const getAllPaths = () => {
+const getAllPaths = async() => {
     //get all paths
-    const request = axios.get(baseUrl)
-    return request.then(response => response.data)
+    const response = await axios.get(baseUrl)
+    return response.data
 }
 
 const createNewPath = async newPathObj => {
@@ -22,8 +22,13 @@ const createNewPath = async newPathObj => {
     return response.data
 }
 
+const deleteLearningPath = async(pathId) => {
+    await axios.delete(`${baseUrl}/${pathId}`)
+}
+
 export default {
     getAllPaths,
     createNewPath,
-    setToken
+    setToken,
+    deleteLearningPath
 }

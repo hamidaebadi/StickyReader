@@ -1,6 +1,41 @@
-import React from "react";
+import React, { useContext } from "react";
+import pathServices from '../services/learningPath'
+import { SharedDataContext } from "../AppSharedContext";
 
 const ReadingPathItem = ({readingItem}) => {
+    const {dispatch} = useContext(SharedDataContext)
+    let dataTarget = "#"+readingItem.topic.replace(/\s+/g, '')
+    dataTarget = dataTarget.replace(/[.,\/!$%\^&\*;:{}=\-_`~()+?]/g,"")
+    let id = readingItem.topic.replace(/\s+/g, '')
+    id = id.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()+?]/g,"")
+
+    const handleDeletion = (event) => {
+        const pathId = event.target.value
+        pathServices.deleteLearningPath(pathId)
+        .then(() => {
+            dispatch({
+                type: "REMOVE_PATH",
+                data: {pathId}
+            })
+
+            const msg = "Your path removed successfully"
+            dispatch({
+                type: "SET_NOTIC_MESSAGE",
+                data: {type: "SUCCESS", content: msg}
+            })
+
+            setTimeout(() => {
+                dispatch({
+                    type: "SET_NOTIC_MESSAGE",
+                    data: {type: null, content: null}
+                })
+            }, 5000)
+        })
+        .catch(error => console.log(error))
+
+    }
+
+
     return(
         <>
             <div className="card h-100 w-30 path-item-card">
@@ -17,7 +52,30 @@ const ReadingPathItem = ({readingItem}) => {
                         {readingItem.description}
                     </p>
                     <p className="">
-                    <button className="btn btn-danger btn-sm mx-2"> Remove</button>
+                   
+                        <button type="button" class="btn btn-danger btn-sm mx-2" data-bs-toggle="modal" data-bs-target={dataTarget}>
+                            Remove
+                        </button>
+
+                        <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div className="modal-header">
+
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure to delete <strong className="text-danger">{readingItem.topic} </strong>- learning path?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Undo</button>
+                                        <button type="button" class="btn btn-danger btn-sm mx-2" onClick={handleDeletion}
+                                        value={readingItem.id} data-bs-dismiss="modal">
+                                            Remove
+                                            </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <button className="btn btn-info btn-sm mx-2">Edit</button>
                     <button className="btn btn-info btn-sm">Veiw stickies</button>
                     </p>

@@ -11,6 +11,11 @@ const getAllStickies = async() => {
     const response = await axios.get(baseUrl)
     return response.data
 }
+
+const getUserStickies = async(userId) => {
+    const response = await axios.get(`${baseUrl}/${userId}`)
+    return response.data
+}
 const createSticky = async(stickyObj) => {
     const config = {
         headers:{Authorization: token}
@@ -24,5 +29,6 @@ const createSticky = async(stickyObj) => {
 export default {
     getAllStickies,
     createSticky,
-    setToken
+    setToken,
+    getUserStickies
 }

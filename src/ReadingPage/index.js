@@ -3,6 +3,7 @@ import { SharedDataContext } from "../AppSharedContext";
 import pathServices from '../services/learningPath'
 import NewPathForm from "../components/NewPathForm";
 import ReadingPathItem from "../components/ReadingPathItem";
+import Message from "../components/Message";
 
 const ReadingPage = () => {
     const {state, dispatch} =  useContext(SharedDataContext)
@@ -18,7 +19,9 @@ const ReadingPage = () => {
         <>
         <div className="container">
                 <div className="row p-4 g-4 fixed-top position-static">
-                    <div className="col"></div>
+                    <div className="col">
+                    {state.NoticMessage ? <Message type={state.NoticMessage.type} msg={state.NoticMessage.content}/> : null}
+                    </div>
                     <div className="col-md-4">
                         <div className="row p-4">
                             <button type="button" className="btn btn-sm btn-primary g-3 " data-bs-toggle="modal"

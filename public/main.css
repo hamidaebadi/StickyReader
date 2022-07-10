@@ -34,7 +34,7 @@ textarea{
 }
 
 .sticky-item-card {
-    width: 70%;
+    max-width: 50%;
 }
 .sticky-item-card > .card-header{
     font-size: 0.8rem;
@@ -42,6 +42,10 @@ textarea{
 .sticky-item-card > .card-body {
     font-size: 0.9rem;
     font-family: 'Times New Roman', Times, serif;
+    min-height: 150px;
+    max-height: 150px;
+    overflow: auto;
+    min-width: 1200px;
 }
 .path-item-description {
     font-size: 0.8rem;
@@ -52,4 +56,8 @@ textarea{
 }
 .path-item-body{
     min-height: 200px;
+}
+
+.search-area {
+    width: 80%;
 }

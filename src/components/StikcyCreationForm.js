@@ -3,7 +3,7 @@ import { SharedDataContext } from "../AppSharedContext";
 import stickyServices from '../services/sticky'
 
 const StickyCreationForm = () => {
-    const {state} = useContext(SharedDataContext)
+    const {state, dispatch} = useContext(SharedDataContext)
     const [stickyContent, setStickyContent] = useState('')
     const [path, setPath] = useState('')
     const handleStickyForm = async(event) => {
@@ -15,11 +15,20 @@ const StickyCreationForm = () => {
         }
 
         try{
-            const returnedSticky = await stickyServices.createSticky(newStickyObj)
+            await stickyServices.createSticky(newStickyObj)
+            const msg = `Your added a note on ${path}`
             setStickyContent('')
             setPath('')
+            dispatch({
+                type: "SET_NOTIC_MESSAGE",
+                data: {type: "SUCCESS", content: msg}
+            })
         }catch(exception){
-            console.log("Error in creation form handling")
+            const msg = "Error: Couldnt add your note, try again!"
+            dispatch({
+                type: "SET_NOTIC_MESSAGE",
+                data: {type: "WARNING", content: msg}
+            })
         }
     }
     if(state.learningPaths.length === 0){

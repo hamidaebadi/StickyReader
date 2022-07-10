@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { SharedDataContext } from "../AppSharedContext";
+import {useQuery} from '@apollo/client'
+import {GET_FOLLOWER_AMOUNT, GET_FOLLOWING_AMOUNT} from '../queries'
 
 const ProfileCard = () =>{
     const {state} = useContext(SharedDataContext)
+    const followerAmountResult = useQuery(GET_FOLLOWER_AMOUNT, {variables: {userId: state.user.id}})
+    const followingAmountResult = useQuery(GET_FOLLOWING_AMOUNT, {variables: {userId: state.user.id}})
+
 
     return(
         <>
@@ -16,10 +22,10 @@ const ProfileCard = () =>{
                         <h6 className="card-title">{state.user.firstName} {state.user.lastName}</h6>
                     </div>
                     <div className="col-md-3">
-                        Following 0
+                        Following {followingAmountResult.loading ? <p>Undefined</p> : followingAmountResult.data.getFollowingAmount}
                     </div>
                     <div className="col-md-3">
-                        Follower 0
+                        Follower {followerAmountResult.loading ? <p>Undefined</p> : followerAmountResult.data.getFollowerAmount}
                     </div>
                 </div>
                 <div className="card-text">
@@ -27,8 +33,9 @@ const ProfileCard = () =>{
                 </div>
 
                 <div className="card-body">
-                    <button className="btn btn-sm btn-primary">Edit about </button>
+                    <Link to="/profile/update">Update Bio</Link>
                 </div>
+                
             </div>
         </>
     )

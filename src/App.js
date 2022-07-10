@@ -4,7 +4,7 @@ import LoginPage from './LoginPage/index';
 import RegisterPage from "./RegisterPage";
 import StickyFeed from "./StickyFeed";
 import Profile from "./ProfilePage";
-import {Navigate, Route, Routes} from 'react-router-dom'
+import {Navigate, Route, Routes, useNavigate} from 'react-router-dom'
 import { SharedDataContext } from "./AppSharedContext";
 import pathServices from './services/learningPath'
 import stickyservices from './services/sticky'
@@ -13,8 +13,6 @@ import HomePage from "./HomePage";
 
 const App = () => {
   const {state, dispatch} = useContext(SharedDataContext)
-  const user = state.user;
-
   //check if user is already logged in
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedDiaryLearnerAppUser')
@@ -29,27 +27,27 @@ const App = () => {
         type: "INIT_ALL_PATHS",
         data: {initialPaths: allPaths}
       }))
-     
+      
       pathServices.setToken(user.token)
       stickyservices.setToken(user.token)
-      
     }
+
   }, [])
 
   return (
     <>
     <div className="container-fluid">
       <div className="row p-3">
-        <Navbar user={user}/>
+        <Navbar user={state.user}/>
       </div>
         
     </div>
     <div className="container-fluid">
       <Routes>
-          <Route path="/" element={user ? <StickyFeed />: <HomePage />}/>
-          <Route path="/reading-paths" element={user ? <ReadingPage /> : <Navigate replace to="/login" />}/>
+          <Route exact path="/" element={state.user ? <StickyFeed />: <HomePage />}/>
+          <Route path="/reading-paths" element={state.user ? <ReadingPage /> : <Navigate replace to="/" />}/>
           <Route path="/register" element={<RegisterPage />}/>
-          <Route path="/profile" element={user ? <Profile /> : <Navigate replace to="/"/>}/>
+          <Route path="/profile" element={state.user ? <Profile /> : <Navigate replace to="/"/>}/>
           <Route path="/login" element={<LoginPage />}/>
       </Routes>
 
